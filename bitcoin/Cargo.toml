@@ -1,5 +1,5 @@
 [package]
-name = "bitcoin"
+name = "bitcoint4"
 version = "0.30.2"
 authors = ["Andrew Poelstra <apoelstra@wpsoftware.net>"]
 license = "CC0-1.0"
