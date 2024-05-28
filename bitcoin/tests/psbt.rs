@@ -5,15 +5,17 @@ use core::convert::TryFrom;
 use std::collections::BTreeMap;
 use std::str::FromStr;
 
-use bitcoin::bip32::{ExtendedPrivKey, ExtendedPubKey, Fingerprint, IntoDerivationPath, KeySource};
-use bitcoin::blockdata::opcodes::OP_0;
-use bitcoin::blockdata::script;
-use bitcoin::consensus::encode::{deserialize, serialize_hex};
-use bitcoin::hashes::hex::FromHex;
-use bitcoin::psbt::{Psbt, PsbtSighashType};
-use bitcoin::script::PushBytes;
-use bitcoin::secp256k1::{self, Secp256k1};
-use bitcoin::{
+use bitcoint4::bip32::{
+    ExtendedPrivKey, ExtendedPubKey, Fingerprint, IntoDerivationPath, KeySource,
+};
+use bitcoint4::blockdata::opcodes::OP_0;
+use bitcoint4::blockdata::script;
+use bitcoint4::consensus::encode::{deserialize, serialize_hex};
+use bitcoint4::hashes::hex::FromHex;
+use bitcoint4::psbt::{Psbt, PsbtSighashType};
+use bitcoint4::script::PushBytes;
+use bitcoint4::secp256k1::{self, Secp256k1};
+use bitcoint4::{
     absolute, Amount, Denomination, Network, OutPoint, PrivateKey, PublicKey, ScriptBuf, Sequence,
     Transaction, TxIn, TxOut, Witness,
 };
@@ -333,7 +335,7 @@ fn parse_and_verify_keys(
 }
 
 /// Does the first signing according to the BIP, returns the signed PSBT. Verifies against BIP 174 test vector.
-fn signer_one_sign(psbt: Psbt, key_map: BTreeMap<bitcoin::PublicKey, PrivateKey>) -> Psbt {
+fn signer_one_sign(psbt: Psbt, key_map: BTreeMap<bitcoint4::PublicKey, PrivateKey>) -> Psbt {
     let expected_psbt_hex = include_str!("data/sign_1_psbt_hex");
     let expected_psbt = hex_psbt!(expected_psbt_hex).unwrap();
 
@@ -344,7 +346,7 @@ fn signer_one_sign(psbt: Psbt, key_map: BTreeMap<bitcoin::PublicKey, PrivateKey>
 }
 
 /// Does the second signing according to the BIP, returns the signed PSBT. Verifies against BIP 174 test vector.
-fn signer_two_sign(psbt: Psbt, key_map: BTreeMap<bitcoin::PublicKey, PrivateKey>) -> Psbt {
+fn signer_two_sign(psbt: Psbt, key_map: BTreeMap<bitcoint4::PublicKey, PrivateKey>) -> Psbt {
     let expected_psbt_hex = include_str!("data/sign_2_psbt_hex");
     let expected_psbt = hex_psbt!(expected_psbt_hex).unwrap();
 
@@ -410,7 +412,7 @@ fn combine_lexicographically() {
 }
 
 /// Signs `psbt` with `keys` if required.
-fn sign(mut psbt: Psbt, keys: BTreeMap<bitcoin::PublicKey, PrivateKey>) -> Psbt {
+fn sign(mut psbt: Psbt, keys: BTreeMap<bitcoint4::PublicKey, PrivateKey>) -> Psbt {
     let secp = Secp256k1::new();
     psbt.sign(&keys, &secp).unwrap();
     psbt
